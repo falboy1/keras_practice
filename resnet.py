@@ -12,7 +12,7 @@ from tensorflow.keras.callbacks import ModelCheckpoint
 
 
 # 学習曲線を画像保存する関数
-def plot_history(histories, key='loss', filename):
+def plot_history(filename, histories ,key='loss'):
     plt.figure(figsize=(16,10))
     for name, history in histories:
         print(history.history)
@@ -99,7 +99,7 @@ def main():
     # 学習方法の設定
     model.compile(
         loss='categorical_crossentropy',
-        optimizer=SGD(lr=0.0001, momentum=0.9),
+        optimizer=SGD(lr=0.001, momentum=0.9),
         metrics=['accuracy']
     )
 
@@ -115,15 +115,15 @@ def main():
     history = model.fit_generator(
         train_generator,
         steps_per_epoch=nb_train_samples,
-        epochs=100,
+        epochs=50,
         validation_data=validation_generator,
         validation_steps=nb_validation_samples,
         callbacks=[checkpoint]
     )
 
     # 学習曲線を保存
-    plot_history([('resnet-50', history)], key='loss', 'figure_loss.png')
-    plot_history([('resnet-50', history)], key='accuracy', 'figure_accuracy.png')
+    plot_history('figure_loss.png',[('resnet-50', history)], key='loss')
+    plot_history('figure_accuracy.png', [('resnet-50', history)], key='accuracy')
 
 
 if __name__ == '__main__':
