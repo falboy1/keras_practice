@@ -21,8 +21,8 @@ def plot_history(filename, histories ,key='loss'):
     plt.legend()
 
     plt.xlim([0,max(history.epoch)])
-    plt.show()
     plt.savefig(filename)
+    plt.show()
 
 '''
 # 混合行列を画像保存する関数
