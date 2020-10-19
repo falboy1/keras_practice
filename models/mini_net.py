@@ -12,7 +12,7 @@ def get_model(img_width, img_height, num_classes):
     x = Dropout(0.25)(x)
     x = Conv2D(128, kernel_size=(3,3), activation='relu')(x)
     x = MaxPooling2D(pool_size=(3,3))(x)
-    x = Flatten()(x)
+    x = GlobalAveragePooling2D()(x)
     x = Dense(128, activation='relu')(x)
     x = Dropout(0.25)(x)
     predictions = Dense(num_classes, activation='softmax')(x)
