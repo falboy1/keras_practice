@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-from tensorflow.keras.applications.resnet50 import ResNet50, preprocess_input, decode_predictions
+from tensorflow.keras.applications.vgg16 import vgg16, preprocess_input, decode_predictions
 from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras.layers import Input, GlobalAveragePooling2D, Dense
 from tensorflow.keras.layers import BatchNormalization, Flatten
 
 
-def get_model(img_width, img_height, num_classes, transfer=True, weights='imagenet', fine_tuning=None):
+def get_model(img_width, img_height, num_classes, transfer=True, weights='imagenet', fine_tuning):
     # ネットワーク作成
     input_tensor = Input(shape=(img_width, img_height, 3))
-    base_model = ResNet50(include_top=False, weights=weights ,input_tensor=input_tensor)
+    base_model = VGG16(include_top=False, weights=weights ,input_tensor=input_tensor)
     x = base_model.output
     x = Flatten()(x)
     x = BatchNormalization()(x)
