@@ -5,7 +5,7 @@ from tensorflow.keras.layers import Input, GlobalAveragePooling2D, Dense
 from tensorflow.keras.layers import BatchNormalization, Flatten
 
 
-def get_model(img_width, img_height, num_classes, transfer=True, weights='imagenet', fine_tuning=None):
+def get_model(img_width, img_height, num_classes, transfer=False, weights='imagenet', fine_tuning=None):
     # ネットワーク作成
     input_tensor = Input(shape=(img_width, img_height, 3))
     base_model = ResNet50(include_top=False, weights=weights ,input_tensor=input_tensor)
@@ -31,7 +31,7 @@ def get_model(img_width, img_height, num_classes, transfer=True, weights='imagen
 
     # Fin-tuning用の処理 (intのみ受付)
     if isinstance(fine_tuning, int):
-        for i, layer in enumerate(base_model.layer):
+        for i, layer in enumerate(base_model.layers):
             if i < fine_tuning:
                 layer.trainable = False
     else:

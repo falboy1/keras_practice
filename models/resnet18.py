@@ -9,7 +9,7 @@ def get_model(img_width, img_height, num_classes, transfer=False, weights='image
     ResNet18, preprocess_input = Classifiers.get('resnet18')
     base_model = ResNet18(weights=weights, include_top=False, input_tensor=input_tensor)
     x = base_model.output
-    x = GlobalAveragePooling2D()(x)
+    x = Flatten()(x)
     x = Dense(256, activation='relu')(x)
     x = BatchNormalization()(x)
     x = Dense(128, activation='relu')(x)
